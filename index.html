@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- GSAP Core and Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "background": "#0e0e0e",
+                        "on-background": "#e7e5e4",
+                        "tertiary-container": "#edeaea",
+                        "error": "#ee7d77",
+                        "primary-dim": "#c0b8a7",
+                        "surface-container-lowest": "#000000",
+                        "primary": "#cec6b5",
+                        "primary-container": "#4b463a",
+                        "tertiary-fixed": "#f5f3f3",
+                        "surface-bright": "#2c2c2c",
+                        "on-primary-fixed-variant": "#605b4d",
+                        "on-tertiary-fixed": "#4a4949",
+                        "on-secondary-fixed": "#423f38",
+                        "on-error": "#490106",
+                        "outline-variant": "#484848",
+                        "on-tertiary-fixed-variant": "#666666",
+                        "surface-container": "#191a1a",
+                        "on-surface": "#e7e5e4",
+                        "on-secondary-fixed-variant": "#5f5b53",
+                        "primary-fixed": "#eae2d0",
+                        "on-primary-container": "#d8d0be",
+                        "on-surface-variant": "#acabaa",
+                        "surface-container-low": "#131313",
+                        "error-container": "#7f2927",
+                        "on-primary": "#444033",
+                        "outline": "#767575",
+                        "secondary-dim": "#a39d94",
+                        "on-secondary": "#222019",
+                        "on-error-container": "#ff9993",
+                        "tertiary-fixed-dim": "#e7e5e4",
+                        "on-tertiary-container": "#575757",
+                        "primary-fixed-dim": "#dcd4c2",
+                        "secondary-fixed-dim": "#dad4c9",
+                        "tertiary-dim": "#edeaea",
+                        "surface-dim": "#0e0e0e",
+                        "inverse-on-surface": "#565555",
+                        "on-secondary-container": "#c5beb5",
+                        "tertiary": "#fbf9f8",
+                        "inverse-surface": "#fcf9f8",
+                        "surface-variant": "#252626",
+                        "surface-tint": "#cec6b5",
+                        "on-primary-fixed": "#443f32",
+                        "error-dim": "#bb5551",
+                        "secondary-container": "#3e3b34",
+                        "surface-container-highest": "#252626",
+                        "surface-container-high": "#1f2020",
+                        "inverse-primary": "#645f51",
+                        "secondary-fixed": "#e8e2d7",
+                        "surface": "#0e0e0e",
+                        "on-tertiary": "#5f5f5f",
+                        "secondary": "#a39d94"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        "headline": ["Newsreader", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Space Grotesk", "monospace"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Manrope:wght@200..800&family=Space+Grotesk:wght@300..700&display=swap');
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #0e0e0e;
+            color: #e7e5e4;
+            font-family: 'Manrope', sans-serif;
+            overflow-x: hidden;
+        }
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(14, 14, 14, 0.2) 0%, rgba(14, 14, 14, 1) 100%);
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0e0e0e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4b463a;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #cec6b5;
+        }
+        .card-3d-container {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+        }
+        .image-transition-enter {
+            animation: imagePop 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        @keyframes imagePop {
+            0% { opacity: 0; transform: scale(0.92) rotateX(-5deg); filter: blur(2px); }
+            100% { opacity: 1; transform: scale(1) rotateX(0deg); filter: blur(0); }
+        }
+        .btn-ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-ripple::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(206, 198, 181, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+        .btn-ripple:active::after {
+            width: 300px;
+            height: 300px;
+        }
+        /* GSAP Section Styles */
+        .gsap-card {
+            transition: all 0.3s ease;
+        }
+        .glow-text {
+            text-shadow: 0 0 5px rgba(206,198,181,0.3);
+        }
+        .neural-grid {
+            background-image: 
+                linear-gradient(rgba(206,198,181,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(206,198,181,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary selection:text-on-primary">
+    <!-- TopNavBar -->
+    <nav class="sticky top-0 w-full z-50 bg-[#0e0e0e]/80 backdrop-blur-xl shadow-2xl shadow-black/60 bg-gradient-to-b from-[#1a1a1a] to-transparent">
+        <div class="flex justify-between items-center px-6 md:px-12 py-4 md:py-6 max-w-screen-2xl mx-auto">
+            <div class="font-serif italic text-xl md:text-2xl tracking-tighter text-[#cec6b5]">Portfolio.mp4</div>
+            <div class="hidden lg:flex gap-8 xl:gap-12 items-center">
+                <a class="text-[#cec6b5] border-b border-[#cec6b5]/30 pb-0.5 font-label text-[10px] xl:text-xs uppercase tracking-widest transition-colors duration-500" href="#work">Selected Work</a>
+                <a class="text-[#8a8a8a] font-light font-label text-[10px] xl:text-xs uppercase tracking-widest hover:text-[#cec6b5] transition-colors duration-500" href="#authority">Testimonials</a>
+                <a class="text-[#8a8a8a] font-light font-label text-[10px] xl:text-xs uppercase tracking-widest hover:text-[#cec6b5] transition-colors duration-500" href="#philosophy">Doctrine</a>
+            </div>
+            <button class="bg-primary text-on-primary px-4 md:px-6 py-2 text-[10px] md:text-xs font-label uppercase tracking-widest hover:bg-primary-dim transition-colors duration-300">
+                Initialize <span class="hidden sm:inline">Contact</span>
+            </button>
+        </div>
+    </nav>
+    <main>
+        <!-- Hero Section -->
+        <section class="relative min-h-[90vh] md:h-screen flex flex-col justify-end px-6 md:px-12 pb-20 md:pb-32 overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img alt="Atmospheric void" class="w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChrZ0dkDq47PN3UY__UphVHok56Ckuc7332lnyICFUaLVFNhqyzSA-PJUFt0IruOHp8Gvm5JWrjRjxzFdaS0SIDS05Ha2mhyrrnVd73_IEUMhmIXayYsaM0wlXoT0ocB-Ay5uRdrb0aaeC9EXe_ZpDkeS5bQYZdL27dCG-EE3zvJ-C9NFAAvNgP3bsSFhGd-1ZJIDtDfmSd2u_gFkaCm8mE17-UpcfZA5K5k4AGoSOSVAbRzKUnlcVKeIa8RwhBPa_-lISTOf9M48"/>
+                <div class="absolute inset-0 hero-gradient"></div>
+            </div>
+            <div class="relative z-10 max-w-4xl">
+                <div class="flex flex-wrap items-center gap-3 md:gap-4 mb-4 md:mb-6">
+                    <span class="font-label text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] uppercase text-primary">chunkz.mp4</span>
+                    <div class="h-px w-8 md:w-12 bg-primary/30"></div>
+                    <span class="font-label text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] uppercase text-on-surface-variant">4 Years Depth</span>
+                </div>
+                <h1 class="font-headline italic text-5xl sm:text-7xl md:text-9xl text-primary tracking-tighter leading-[0.9] md:leading-[0.85] mb-6 md:mb-8">
+                    Nahom Samuel<br class="hidden sm:block"/>Content Enhancer.
+                </h1>
+                <p class="font-body text-lg md:text-2xl text-on-surface-variant max-w-2xl leading-relaxed font-light">
+                    I'm Nahom Samuel, A 17 year old content creator<br>
+                    architect of visual authority & biomechanical aesthetics.
+                </p>
+            </div>
+        </section>
+
+        <!-- GSAP ANIMATION SECTION - Biomechanical Neural Core -->
+        <section class="py-24 md:py-32 px-6 md:px-12 relative overflow-hidden bg-gradient-to-b from-surface-container to-background" id="gsap-section">
+            <div class="absolute inset-0 neural-grid opacity-30 pointer-events-none"></div>
+            <div class="max-w-screen-2xl mx-auto">
+                <div class="text-center mb-16 md:mb-24">
+                    <span class="font-label text-[10px] md:text-xs tracking-[0.4em] uppercase text-primary/70">Neural Architecture</span>
+                    <h2 class="font-headline text-3xl md:text-5xl italic text-primary mt-4">biomechanical <span class="text-on-surface">synthesis</span></h2>
+                    <div class="h-px w-20 bg-primary/30 mx-auto mt-6"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                    <!-- Left Content - Interactive Card -->
+                    <div class="relative">
+                        <div id="hoverCard" class="relative bg-surface-container-highest rounded-2xl overflow-hidden border border-primary/10 cursor-pointer group transition-all duration-300 shadow-2xl">
+                            <!-- Animated Gradient Border -->
+                            <div class="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                            
+                            <div class="relative p-8 md:p-12 space-y-6">
+                                <!-- Icon with GSAP animation -->
+                                <div id="gsapIcon" class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-3xl text-primary">tune</span>
+                                </div>
+                                
+                                <div>
+                                    <h3 id="gsapTitle" class="font-headline text-2xl md:text-3xl italic text-primary">Kinetic Resonance</h3>
+                                    <div class="h-px w-12 bg-primary/40 my-4"></div>
+                                    <p id="gsapDesc" class="font-body text-sm md:text-base text-on-surface-variant leading-relaxed">
+                                        Hover to activate biomechanical neural response — visual data synthesis and frequency modulation.
+                                    </p>
+                                </div>
+                                
+                                <!-- Dynamic Metrics that change on hover -->
+                                <div id="metricPanel" class="grid grid-cols-2 gap-4 pt-4 border-t border-primary/10">
+                                    <div>
+                                        <div class="font-label text-[8px] uppercase tracking-wider text-primary/60">Neural Load</div>
+                                        <div id="metricVal1" class="font-headline text-2xl italic text-primary">87%</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-label text-[8px] uppercase tracking-wider text-primary/60">Synaptic Speed</div>
+                                        <div id="metricVal2" class="font-headline text-2xl italic text-primary">2.4ms</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Status indicator -->
+                                <div class="flex items-center gap-2 pt-2">
+                                    <div id="statusDot" class="w-2 h-2 rounded-full bg-primary/40"></div>
+                                    <span id="statusText" class="font-label text-[8px] uppercase tracking-wider text-primary/50">STANDBY MODE</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Overlay effect -->
+                            <div class="absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent pointer-events-none"></div>
+                        </div>
+                        
+                        <!-- Decorative element -->
+                        <div class="absolute -top-6 -right-6 w-32 h-32 rounded-full bg-primary/5 blur-3xl -z-10"></div>
+                    </div>
+                    
+                    <!-- Right Content - Animated Stats Display -->
+                    <div class="space-y-8">
+                        <div class="space-y-2">
+                            <div class="font-label text-[10px] tracking-[0.3em] uppercase text-primary/60">real-time metrics</div>
+                            <div class="text-4xl md:text-6xl font-headline italic text-on-surface">
+                                <span id="statNumber" class="text-primary">0</span>
+                                <span> engagements</span>
+                            </div>
+                            <p class="font-body text-sm text-on-surface-variant">Neural interface detecting cognitive resonance patterns</p>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-4">
+                            <div id="badge1" class="px-4 py-2 bg-primary-container/50 rounded-full border border-primary/20">
+                                <span class="font-label text-[9px] uppercase tracking-wider text-primary">+342% reach</span>
+                            </div>
+                            <div id="badge2" class="px-4 py-2 bg-primary-container/50 rounded-full border border-primary/20">
+                                <span class="font-label text-[9px] uppercase tracking-wider text-primary">biomechanical</span>
+                            </div>
+                            <div id="badge3" class="px-4 py-2 bg-primary-container/50 rounded-full border border-primary/20">
+                                <span class="font-label text-[9px] uppercase tracking-wider text-primary">neural sync</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Progress bar -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between font-label text-[8px] uppercase tracking-wider text-primary/60">
+                                <span>cognitive flow</span>
+                                <span id="progressPercent">0%</span>
+                            </div>
+                            <div class="h-1 bg-surface-container-highest rounded-full overflow-hidden">
+                                <div id="progressFill" class="h-full w-0 bg-primary rounded-full transition-all duration-300"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Branding / Philosophy -->
+        <section class="py-24 md:py-40 px-6 md:px-12 bg-background" id="philosophy">
+            <div class="max-w-screen-xl mx-auto text-center space-y-12 md:space-y-16">
+                <div class="font-label text-[10px] md:text-xs uppercase tracking-[0.4em] text-primary/60">The Doctrine</div>
+                <h2 class="font-headline text-4xl sm:text-6xl md:text-8xl text-on-surface italic leading-tight">
+                    Branding is not a coat <br class="md:hidden"/> of paint, <br class="hidden md:block"/>it is your <span class="text-primary">Style</span>.
+                </h2>
+                <p class="font-body text-lg md:text-xl text-on-surface-variant max-w-3xl mx-auto leading-relaxed px-4">
+                    I dismantle the generic and rebuild it with authority. Your content shouldn't just be seen; it should be felt as a structural presence in the viewer's digital environment.
+                </p>
+                <div class="h-16 md:h-24 w-px bg-gradient-to-b from-primary to-transparent mx-auto"></div>
+            </div>
+        </section>
+
+        <!-- Authority Section -->
+        <section class="bg-surface-container-lowest py-20 md:py-32 px-6 md:px-12 relative overflow-hidden" id="authority">
+            <div class="absolute top-0 right-0 w-full md:w-1/2 h-full opacity-[0.05] md:opacity-10 grayscale pointer-events-none">
+                <img alt="Brutalist architecture" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOG4E2n42SLSozKgvC6JmCM0HmTA4ZCRd1fyB4QukuBUqwRTh2kni_eL5lq6orZdnRSMLh7c8Uz8J44on0-sKi5d9qsuIRg0BnK_2tj3clzXwVs_qNpGKIDODWpOIESm8dFwx7m3ofbzGpXl1dQyzJJlV7vRmJp2sQk2f_EydHTbjvuC4K2BLnqGC41KiLQPWDKNcMW3SeyOPlFu08GRyLzQQbIZNA35uBmPEACI8yXOJ_U65fR4GJhXR4tm0gye61nqLmUpVhBUU"/>
+            </div>
+            <div class="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-px border border-outline-variant/10">
+                <div class="bg-surface-container p-10 md:p-16 space-y-6 md:space-y-8">
+                    <span class="material-symbols-outlined text-3xl md:text-4xl text-primary">verified_user</span>
+                    <h3 class="font-headline text-2xl md:text-3xl italic text-on-surface">Authority Protocol</h3>
+                    <p class="font-body text-sm md:text-base text-on-surface-variant leading-relaxed">Establishing visual dominance through intentional spacing, sophisticated typography, and motion theory.</p>
+                </div>
+                <div class="bg-surface-container p-10 md:p-16 space-y-6 md:space-y-8 border-t md:border-t-0 md:border-l border-outline-variant/10">
+                    <span class="material-symbols-outlined text-3xl md:text-4xl text-primary">neurology</span>
+                    <h3 class="font-headline text-2xl md:text-3xl italic text-on-surface">Cognitive Flow</h3>
+                    <p class="font-body text-sm md:text-base text-on-surface-variant leading-relaxed">Mapping the user journey using psychological cues that ensure message retention and brand loyalty.</p>
+                </div>
+                <div class="bg-surface-container p-10 md:p-16 space-y-6 md:space-y-8 border-t md:border-t-0 md:border-l border-outline-variant/10">
+                    <span class="material-symbols-outlined text-3xl md:text-4xl text-primary">precision_manufacturing</span>
+                    <h3 class="font-headline text-2xl md:text-3xl italic text-on-surface">Mechanical Finish</h3>
+                    <p class="font-body text-sm md:text-base text-on-surface-variant leading-relaxed">Every frame, every pixel, and every transition is polished to a biomechanical standard of perfection.</p>
+                </div>
+            </div>
+        </section>
+
+        <!--Cool video-->
+        <!-- Full-Section Video with Scroll Trigger (Add this before the footer) -->
+<section class="relative w-full h-screen overflow-hidden" id="video-section">
+    <!-- Video Element -->
+    <video id="scrollVideo" class="absolute top-0 left-0 w-full h-full object-cover" autoplay muted playsinline loop>
+        <source src="./assets/section.mp4" type="video/mp4"/>
+         <source src="./assets/section.webm" type="video/webm">
+        <!-- Fallback video - you can replace with your own URL -->
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Overlay for text/branding -->
+    <div class="absolute inset-0 bg-black/40 z-10 flex items-center justify-center">
+        <div class="text-center px-6">
+            <div class="font-label text-[10px] md:text-xs tracking-[0.4em] uppercase text-primary mb-4">cinematic experience</div>
+            <h2 class="font-headline text-4xl sm:text-6xl md:text-7xl italic text-primary tracking-tighter">Visual Manifesto</h2>
+            <div class="h-px w-16 bg-primary/50 mx-auto my-6"></div>
+            <p class="font-body text-sm md:text-base text-on-surface-variant max-w-md mx-auto">witness the biomechanical synthesis in motion</p>
+        </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2">
+        <span class="font-label text-[8px] uppercase tracking-[0.3em] text-primary/60">scroll to continue</span>
+        <div class="w-px h-12 bg-gradient-to-b from-primary to-transparent"></div>
+    </div>
+</section>
+        <!-- Metrics Section with Enhanced 3D Image Cycling -->
+        <section class="bg-surface-container-lowest py-20 md:py-32 px-6 md:px-12" id="metrics">
+            <div class="max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
+                <div class="space-y-8 md:space-y-12">
+                    <h2 class="font-headline text-4xl md:text-5xl italic text-on-surface tracking-tight">Quantitative Validation</h2>
+                    <div class="space-y-2" id="metric-data">
+                        <div class="font-label text-[10px] md:text-xs text-primary tracking-[0.2em] uppercase" id="metric-label">Annual Reach</div>
+                        <div class="text-7xl md:text-8xl font-headline italic text-primary" id="metric-value">3M+</div>
+                        <p class="font-body text-sm md:text-base text-on-surface-variant max-w-sm" id="metric-description">Generated views in the past year through strategic enhancement and neural-engagement editing.</p>
+                    </div>
+                    <button id="changeCardBtn" class="flex items-center gap-4 border rounded-2xl p-1 hover:shadow-2xl hover:bg-primary group transition-all hover:scale-105 duration-700 hover:shadow-xl btn-ripple">
+                        <span class="font-label text-[10px] md:text-xs uppercase tracking-widest text-on-surface p-3 group-hover:text-black transition-colors">Click to switch metrics + 3D view</span>
+                        <span class="material-symbols-outlined text-on-surface group-hover:text-black transition-colors text-xl">autorenew</span>
+                    </button>
+                </div>
+                <!-- 3D Image Card Container -->
+                <div class="aspect-square bg-surface-container-highest flex items-center justify-center p-6 md:p-12 relative overflow-hidden rounded-xl card-3d-container">
+                    <div class="absolute inset-0 bg-gradient-radial from-primary/5 to-transparent pointer-events-none"></div>
+                    <div id="flip-card" class="w-full h-full relative cursor-pointer" style="perspective: 1200px;">
+                        <div id="cardInner" class="relative w-full h-full transition-all duration-700 transform-gpu" style="transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);">
+                            <div id="cardFront" class="absolute w-full h-full backface-hidden rounded-2xl overflow-hidden shadow-2xl" style="backface-visibility: hidden; transform: rotateY(0deg);">
+                                <img id="mainVisual" class="w-full h-full object-cover transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOG4E2n42SLSozKgvC6JmCM0HmTA4ZCRd1fyB4QukuBUqwRTh2kni_eL5lq6orZdnRSMLh7c8Uz8J44on0-sKi5d9qsuIRg0BnK_2tj3clzXwVs_qNpGKIDODWpOIESm8dFwx7m3ofbzGpXl1dQyzJJlV7vRmJp2sQk2f_EydHTbjvuC4K2BLnqGC41KiLQPWDKNcMW3SeyOPlFu08GRyLzQQbIZNA35uBmPEACI8yXOJ_U65fR4GJhXR4tm0gye61nqLmUpVhBUU" alt="Dynamic visual"/>
+                            </div>
+                            <div id="cardBack" class="absolute w-full h-full backface-hidden rounded-2xl bg-gradient-to-br from-primary-container to-surface-container-high flex items-center justify-center" style="backface-visibility: hidden; transform: rotateY(180deg);">
+                                <div class="text-center p-6">
+                                    <span class="material-symbols-outlined text-6xl text-primary mb-3">auto_awesome</span>
+                                    <p class="font-label text-xs uppercase tracking-wider text-primary">neural flux</p>
+                                    <p class="font-headline italic text-sm mt-2 text-on-surface">perception shift</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Selected Work (Gallery) - Truncated for brevity but kept intact -->
+        <section class="py-20 md:py-32 px-6 md:px-12" id="work">
+            <div class="max-w-screen-2xl mx-auto space-y-16 md:space-y-24">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+                    <h2 class="font-headline text-5xl md:text-6xl italic text-primary">Selected Work</h2>
+                    <div class="font-label text-[10px] md:text-xs uppercase tracking-widest text-on-surface-variant mb-0 md:mb-4">Archive 01 — 04</div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+                    <div class="md:col-span-12 lg:col-span-8 group cursor-pointer">
+                        <div class="overflow-hidden bg-surface-container mb-6 relative aspect-[16/9] rounded-xl">
+                            <img alt="Project Alpha" class="w-full h-full object-cover grayscale group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbHk_xO1moN1-8LT8Zyx6B6OG2FMIU5t8q2XzC0AOLmxQMZnijQAzece4bvnsN2TktzMm97q1_eMMO0nA-7GHD3f9UXNB663hKqySyaNIolLDp7QzDY9vr5mV7gYQedLzFVNQmh_frxWCqMaEdlOad9loomUenGIIp68puyr2iFP8D4n1p3Gl1QseNuOuIsPuIRam_qc07gcBiiG_nc45bCAWq73qIr2MI_VZD_c9DbuSWv-_kk6dyegqTEtANpYCTbg-H9Jsnw_Q"/>
+                        </div>
+                        <div class="flex justify-between items-start"><div><h4 class="font-headline text-2xl md:text-3xl italic text-on-surface">Neural Genesis</h4><p class="font-body text-sm md:text-base text-on-surface-variant">Brand Identity & Editorial Direction</p></div><span class="font-label text-[10px] md:text-xs text-primary">2024</span></div>
+                    </div>
+                    <div class="md:col-span-6 lg:col-span-4 group cursor-pointer lg:mt-24">
+                        <div class="overflow-hidden bg-surface-container mb-6 relative aspect-[3/4] rounded-xl"><img alt="Project Beta" class="w-full h-full object-cover grayscale group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1UclDfMCvafgTS2qLlpgqGelPEG0pgIRnXOmfCLaiLeoXZrtinolC7P79ApKkbFpLwNAd99HryFxRGGUkGjpgfjIWAspyOjC1GkvlXs7K7rD-Lw_8i5J5cbjPLep5PvUCWjQ3XMC0wzGYrTF7CWhruttdnAbG_kLDOXElZcpY-e0mrXblggHgObyi5KvrPXoXizpq4vFhohcGfZdJN2-2EEHI6NMKdkExC7zQAEBXnzkr8lv1cZ5cOiY51mBk-glvCE-wrrKgoX4"/></div>
+                        <div class="flex justify-between items-start"><div><h4 class="font-headline text-xl md:text-2xl italic text-on-surface">Void Fragment</h4><p class="font-body text-sm md:text-base text-on-surface-variant">Visual Synthesis</p></div><span class="font-label text-[10px] md:text-xs text-primary">2023</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="py-20 md:py-40 px-6 md:px-12" id="contact">
+            <div class="max-w-screen-2xl mx-auto bg-surface-container p-8 sm:p-20 lg:p-32 relative overflow-hidden rounded-2xl">
+                <div class="absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent"></div>
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-20">
+                    <div class="space-y-8 md:space-y-12"><h2 class="font-headline text-5xl sm:text-6xl md:text-8xl italic text-on-surface leading-[0.9]">Start the <br/><span class="text-primary">Transition</span>.</h2><p class="font-body text-lg md:text-xl text-on-surface-variant max-w-md leading-relaxed">Ready to evolve your digital presence from noise into authority? Connect for high-tier collaboration.</p><div class="space-y-4 pt-6 md:pt-12"><div class="font-label text-[10px] tracking-[0.3em] uppercase text-primary">Direct Line</div><div class="font-headline text-2xl md:text-3xl italic text-on-surface break-words">hello@portfolio-mpa.void</div></div></div>
+                    <form class="space-y-6 md:space-y-8"><div class="space-y-2 border-b border-outline-variant/30 pb-4 focus-within:border-primary transition-colors"><label class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Entity Name</label><input class="w-full bg-transparent border-none p-0 font-headline italic text-xl md:text-2xl text-on-surface placeholder:text-outline-variant focus:ring-0" placeholder="John Doe" type="text"/></div><div class="space-y-2 border-b border-outline-variant/30 pb-4 focus-within:border-primary transition-colors"><label class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Communication Vector</label><input class="w-full bg-transparent border-none p-0 font-headline italic text-xl md:text-2xl text-on-surface placeholder:text-outline-variant focus:ring-0" placeholder="email@address.com" type="email"/></div><div class="space-y-2 border-b border-outline-variant/30 pb-4 focus-within:border-primary transition-colors"><label class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">The Intent</label><textarea class="w-full bg-transparent border-none p-0 font-headline italic text-xl md:text-2xl text-on-surface placeholder:text-outline-variant focus:ring-0 resize-none" placeholder="Describe the requirement..." rows="3"></textarea></div><button class="w-full bg-primary text-on-primary py-4 md:py-6 font-label uppercase tracking-[0.2em] text-[10px] md:text-sm hover:bg-primary-dim transition-all duration-500">Transmit Inquiry</button></form>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="w-full py-16 md:py-20 px-6 md:px-12 bg-[#000000] bg-gradient-to-t from-[#131313] to-transparent">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end w-full border-t border-[#484848]/10 pt-12 max-w-screen-2xl mx-auto gap-8"><div class="space-y-4 md:space-y-6"><div class="font-serif italic text-lg text-[#cec6b5]">chunkz.mp4</div><div class="font-mono text-[8px] md:text-[10px] uppercase tracking-[0.2em] text-[#484848]">© 2026 All Rights Reserved.</div></div><div class="flex flex-wrap gap-6 md:gap-12"><a class="font-mono text-[8px] md:text-[10px] uppercase tracking-[0.2em] text-[#484848] hover:text-[#cec6b5] transition-opacity duration-300" href="#">Manifesto</a><a class="font-mono text-[8px] md:text-[10px] uppercase tracking-[0.2em] text-[#484848] hover:text-[#cec6b5] transition-opacity duration-300" href="#">Source Protocol</a><a class="font-mono text-[8px] md:text-[10px] uppercase tracking-[0.2em] text-[#484848] hover:text-[#cec6b5] transition-opacity duration-300" href="#">Neural Link</a></div></div>
+    </footer>
+
+    <script>
+        // GSAP Hover Animation for the Biomechanical Section
+        gsap.registerPlugin(ScrollTrigger);
+        
+        const hoverCard = document.getElementById('hoverCard');
+        const gsapIcon = document.getElementById('gsapIcon');
+        const gsapTitle = document.getElementById('gsapTitle');
+        const gsapDesc = document.getElementById('gsapDesc');
+        const metricVal1 = document.getElementById('metricVal1');
+        const metricVal2 = document.getElementById('metricVal2');
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const statNumber = document.getElementById('statNumber');
+        const progressFill = document.getElementById('progressFill');
+        const progressPercent = document.getElementById('progressPercent');
+        
+        let hoverTimeline = null;
+        let counter = 0;
+        let counterInterval = null;
+        
+        // Function to animate counter
+        function startCounter() {
+            if (counterInterval) clearInterval(counterInterval);
+            counter = 0;
+            statNumber.innerText = '0';
+            counterInterval = setInterval(() => {
+                if (counter < 248) {
+                    counter += Math.floor(Math.random() * 15) + 3;
+                    if (counter > 248) counter = 248;
+                    statNumber.innerText = counter + 'K';
+                } else {
+                    clearInterval(counterInterval);
+                }
+            }, 50);
+        }
+        
+        function resetCounter() {
+            if (counterInterval) clearInterval(counterInterval);
+            statNumber.innerText = '0';
+            counter = 0;
+        }
+        
+        // Hover animation timeline
+        hoverCard.addEventListener('mouseenter', () => {
+            if (hoverTimeline) hoverTimeline.kill();
+            
+            hoverTimeline = gsap.timeline();
+            
+            // Icon pulse and rotate
+            hoverTimeline.to(gsapIcon, {
+                scale: 1.15,
+                rotation: 360,
+                duration: 0.6,
+                ease: "back.out(0.5)",
+                backgroundColor: "rgba(75, 70, 58, 0.9)"
+            }, 0);
+            
+            // Title glow and shift
+            hoverTimeline.to(gsapTitle, {
+                letterSpacing: "2px",
+                textShadow: "0 0 8px rgba(206,198,181,0.5)",
+                duration: 0.4,
+                ease: "power2.out"
+            }, 0);
+            
+            // Description fade and slide
+            hoverTimeline.to(gsapDesc, {
+                y: -3,
+                duration: 0.3,
+                ease: "power1.out"
+            }, 0);
+            
+            // Metric values update with animation
+            hoverTimeline.call(() => {
+                metricVal1.innerText = "98%";
+                metricVal2.innerText = "1.2ms";
+                gsap.to(metricVal1, { scale: 1.1, duration: 0.2, yoyo: true, repeat: 1 });
+                gsap.to(metricVal2, { scale: 1.1, duration: 0.2, yoyo: true, repeat: 1 });
+            }, null, 0.2);
+            
+            // Status dot and text activation
+            hoverTimeline.to(statusDot, {
+                backgroundColor: "#cec6b5",
+                boxShadow: "0 0 8px #cec6b5",
+                duration: 0.3
+            }, 0.1);
+            hoverTimeline.to(statusText, {
+                color: "#cec6b5",
+                duration: 0.3
+            }, 0.1);
+            hoverTimeline.call(() => {
+                statusText.innerText = "NEURAL SYNC ACTIVE";
+            }, null, 0.2);
+            
+            // Progress bar fill animation
+            hoverTimeline.to(progressFill, {
+                width: "100%",
+                duration: 1.2,
+                ease: "power2.out"
+            }, 0);
+            
+            // Progress percent counter
+            let progressVal = 0;
+            const progressInterval = setInterval(() => {
+                if (progressVal < 100) {
+                    progressVal += Math.floor(Math.random() * 12) + 2;
+                    if (progressVal > 100) progressVal = 100;
+                    progressPercent.innerText = progressVal + "%";
+                } else {
+                    clearInterval(progressInterval);
+                }
+            }, 40);
+            
+            hoverTimeline.call(() => {
+                startCounter();
+            }, null, 0.3);
+            
+            // Badge animations
+            gsap.to("#badge1", { x: 5, duration: 0.3, yoyo: true, repeat: 1, ease: "power1.inOut" });
+            gsap.to("#badge2", { x: -5, duration: 0.3, yoyo: true, repeat: 1, ease: "power1.inOut", delay: 0.1 });
+            gsap.to("#badge3", { x: 5, duration: 0.3, yoyo: true, repeat: 1, ease: "power1.inOut", delay: 0.2 });
+            
+            // Pulse animation on card border
+            gsap.to(hoverCard, {
+                boxShadow: "0 0 25px rgba(206,198,181,0.2)",
+                duration: 0.5,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            });
+            
+            hoverTimeline.call(() => {
+                window.hoverPulse = gsap.to(hoverCard, {
+                    boxShadow: "0 0 30px rgba(206,198,181,0.3)",
+                    duration: 0.8,
+                    repeat: -1,
+                    yoyo: true
+                });
+            });
+        });
+        
+        hoverCard.addEventListener('mouseleave', () => {
+            if (hoverTimeline) hoverTimeline.kill();
+            if (window.hoverPulse) window.hoverPulse.kill();
+            
+            // Reset animations
+            gsap.to(gsapIcon, { scale: 1, rotation: 0, duration: 0.4, backgroundColor: "transparent" });
+            gsap.to(gsapTitle, { letterSpacing: "0px", textShadow: "none", duration: 0.3 });
+            gsap.to(gsapDesc, { y: 0, duration: 0.2 });
+            gsap.to(statusDot, { backgroundColor: "rgba(206,198,181,0.4)", boxShadow: "none", duration: 0.3 });
+            gsap.to(statusText, { color: "rgba(206,198,181,0.5)", duration: 0.3 });
+            gsap.to(progressFill, { width: "0%", duration: 0.5 });
+            gsap.to(hoverCard, { boxShadow: "none", duration: 0.3 });
+            
+            metricVal1.innerText = "87%";
+            metricVal2.innerText = "2.4ms";
+            statusText.innerText = "STANDBY MODE";
+            progressPercent.innerText = "0%";
+            resetCounter();
+            
+            if (counterInterval) clearInterval(counterInterval);
+        });
+        
+        // ScrollTrigger reveal for GSAP section
+        gsap.from("#gsap-section .gsap-card", {
+            scrollTrigger: {
+                trigger: "#gsap-section",
+                start: "top 80%",
+                toggleActions: "play none none reverse"
+            },
+            opacity: 0,
+            y: 50,
+            duration: 0.8,
+            ease: "power2.out"
+        });
+        
+        // Initial counter reset
+        resetCounter();
+    </script>
+    <!--Video on play -->
+<script>
+    const scrollVideo = document.getElementById('scrollVideo');
+    if (scrollVideo) {
+        scrollVideo.play().catch(() => {
+            document.addEventListener('click', () => scrollVideo.play(), { once: true });
+        });
+    }
+</script>
+    
+    <!-- Existing 3D Card Script (preserved) -->
+    <script>
+        const imageGallery = [
+            "https://lh3.googleusercontent.com/aida-public/AB6AXuDOG4E2n42SLSozKgvC6JmCM0HmTA4ZCRd1fyB4QukuBUqwRTh2kni_eL5lq6orZdnRSMLh7c8Uz8J44on0-sKi5d9qsuIRg0BnK_2tj3clzXwVs_qNpGKIDODWpOIESm8dFwx7m3ofbzGpXl1dQyzJJlV7vRmJp2sQk2f_EydHTbjvuC4K2BLnqGC41KiLQPWDKNcMW3SeyOPlFu08GRyLzQQbIZNA35uBmPEACI8yXOJ_U65fR4GJhXR4tm0gye61nqLmUpVhBUU",
+            "https://lh3.googleusercontent.com/aida-public/AB6AXuDbHk_xO1moN1-8LT8Zyx6B6OG2FMIU5t8q2XzC0AOLmxQMZnijQAzece4bvnsN2TktzMm97q1_eMMO0nA-7GHD3f9UXNB663hKqySyaNIolLDp7QzDY9vr5mV7gYQedLzFVNQmh_frxWCqMaEdlOad9loomUenGIIp68puyr2iFP8D4n1p3Gl1QseNuOuIsPuIRam_qc07gcBiiG_nc45bCAWq73qIr2MI_VZD_c9DbuSWv-_kk6dyegqTEtANpYCTbg-H9Jsnw_Q",
+            "https://lh3.googleusercontent.com/aida-public/AB6AXuB1UclDfMCvafgTS2qLlpgqGelPEG0pgIRnXOmfCLaiLeoXZrtinolC7P79ApKkbFpLwNAd99HryFxRGGUkGjpgfjIWAspyOjC1GkvlXs7K7rD-Lw_8i5J5cbjPLep5PvUCWjQ3XMC0wzGYrTF7CWhruttdnAbG_kLDOXElZcpY-e0mrXblggHgObyi5KvrPXoXizpq4vFhohcGfZdJN2-2EEHI6NMKdkExC7zQAEBXnzkr8lv1cZ5cOiY51mBk-glvCE-wrrKgoX4",
+            "https://lh3.googleusercontent.com/aida-public/AB6AXuAN3Oav5XRtBF-rKl1ES-Aih7oKbJeI-xkviAK-h8u9oJ180BbxPt2MhmzrSQEU9yMZszzjoKgBzkpdKdTxogUkHKgNP-LpPz1Ped97hjgMU7glv3x46FMVCZBlefR5N3VVMc0EuGzm1Lpx3fRruMeZ2Kyh5BFUERXfDehq32zww5sZDQRE3H5PrHqS7ZwThNw5EhbeodMT1cuu_lXAzoa-33mbqCsGN5E5I8eVpk26KnIMyUQOKoorVq37zQqaD6Zd-5X_GfmqrsQ",
+            "https://lh3.googleusercontent.com/aida-public/AB6AXuDOKRx1zBNEFD7K177CbXwCE88kInB0jvsaoCIoCod800COEmlpKwgl9SCSv2oPLFBJtmS_JbT4xqMmRbmkGi_c2Yq9o3eJhDTA7s395a3d0vuhsq-Wu09q9stc7eHDMHg9bjmGk38C9AW_2nX8a9ecqY9zLTPUyEZqIM1k6ZCrJXKMOy22dIxV-0ZgcMTABI8_TnL88Tt4qwQRaTVbZYzbZAmda2e3NqdI9D1DrvnlJhNDGVFlIzB62UUkBwZveum5ywPZeEdQpLM"
+        ];
+        
+        const metricsCycle = [
+            { label: "Annual Reach", value: "3M+", desc: "Generated views in the past year through strategic enhancement and neural-engagement editing." },
+            { label: "Engagement Rate", value: "42%", desc: "Average audience retention across all platforms — above industry benchmark by 18%." },
+            { label: "Projects Delivered", value: "87", desc: "End-to-end content transformations for creators, brands, and digital architects." },
+            { label: "Virality Index", value: "2.4x", desc: "Organic share multiplier effect from biomechanically optimized content sequences." },
+            { label: "Neural Resonance", value: "94%", desc: "Positive sentiment analysis across cognitive mapping of audience reactions." }
+        ];
+        
+        let currentIndex = 0;
+        const mainImg = document.getElementById('mainVisual');
+        const metricLabel = document.getElementById('metric-label');
+        const metricValue = document.getElementById('metric-value');
+        const metricDesc = document.getElementById('metric-description');
+        const cardInner = document.getElementById('cardInner');
+        let isAnimating = false;
+        
+        function perform3DTransition(newImageSrc, newMetric) {
+            if (isAnimating) return;
+            isAnimating = true;
+            cardInner.style.transform = 'rotateY(180deg)';
+            setTimeout(() => {
+                if (mainImg) {
+                    mainImg.style.opacity = '0';
+                    setTimeout(() => { mainImg.src = newImageSrc; mainImg.style.opacity = '1'; }, 80);
+                }
+                if (metricLabel && metricValue && metricDesc) {
+                    metricLabel.style.opacity = '0'; metricValue.style.opacity = '0'; metricDesc.style.opacity = '0';
+                    setTimeout(() => {
+                        metricLabel.innerText = newMetric.label; metricValue.innerText = newMetric.value; metricDesc.innerText = newMetric.desc;
+                        metricLabel.style.opacity = '1'; metricValue.style.opacity = '1'; metricDesc.style.opacity = '1';
+                    }, 100);
+                }
+            }, 300);
+            setTimeout(() => { cardInner.style.transform = 'rotateY(0deg)'; setTimeout(() => { isAnimating = false; }, 600); }, 600);
+        }
+        
+        function changeCard() { if (isAnimating) return; currentIndex = (currentIndex + 1) % imageGallery.length; perform3DTransition(imageGallery[currentIndex], metricsCycle[currentIndex % metricsCycle.length]); const btn = document.getElementById('changeCardBtn'); if (btn) { btn.style.transform = 'scale(0.97)'; setTimeout(() => { if(btn) btn.style.transform = ''; }, 150); } }
+        
+        const btnElement = document.getElementById('changeCardBtn');
+        if (btnElement) btnElement.addEventListener('click', changeCard);
+        
+        const cardContainer = document.querySelector('.card-3d-container');
+        if (cardContainer) {
+            cardContainer.addEventListener('mousemove', (e) => { const rect = cardContainer.getBoundingClientRect(); const x = (e.clientX - rect.left) / rect.width - 0.5; const y = (e.clientY - rect.top) / rect.height - 0.5; const rotateX = y * 8; const rotateY = x * 8; if (cardInner && !isAnimating) cardInner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`; });
+            cardContainer.addEventListener('mouseleave', () => { if (cardInner && !isAnimating) cardInner.style.transform = 'rotateY(0deg) rotateX(0deg)'; });
+        }
+        imageGallery.forEach(url => { const img = new Image(); img.src = url; });
+    </script>
+</body>
+</html>
+```
