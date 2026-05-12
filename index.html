@@ -13,7 +13,7 @@
             theme: {
                 extend: {
                     colors: {
-                        "background": "#0a0a0a",
+                        "background": "#1a0505",
                         "on-background": "#f5e6c8",
                         "primary": "#c9a84c",
                         "primary-dim": "#a8893c",
@@ -23,18 +23,18 @@
                         "secondary": "#8b1a1a",
                         "secondary-container": "#3a0808",
                         "on-secondary": "#ffd4d4",
-                        "surface": "#0a0a0a",
-                        "surface-container": "#141008",
-                        "surface-container-low": "#0f0c06",
-                        "surface-container-high": "#1e1608",
-                        "surface-container-highest": "#282010",
-                        "surface-container-lowest": "#050503",
-                        "surface-bright": "#2a2010",
-                        "surface-variant": "#1e1608",
+                        "surface": "#1a0505",
+                        "surface-container": "#2a0a0a",
+                        "surface-container-low": "#220808",
+                        "surface-container-high": "#3a1010",
+                        "surface-container-highest": "#4a1818",
+                        "surface-container-lowest": "#120303",
+                        "surface-bright": "#3a1010",
+                        "surface-variant": "#2a0808",
                         "on-surface": "#f5e6c8",
-                        "on-surface-variant": "#b8a47a",
-                        "outline": "#5a4a28",
-                        "outline-variant": "#3a2a10",
+                        "on-surface-variant": "#c4907a",
+                        "outline": "#7a3a28",
+                        "outline-variant": "#4a2010",
                         "error": "#ff6b6b",
                         "tertiary": "#d4af37",
                     },
@@ -75,7 +75,7 @@
             --crimson: #8b1a1a;
             --crimson-bright: #c0392b;
             --crimson-deep: #4a0808;
-            --bg: #0a0a0a;
+            --bg: #1a0505;
         }
 
         * { box-sizing: border-box; }
@@ -219,7 +219,7 @@
         }
 
         /* Different sizes for depth */
-        .cloud-layer-back .cloud-img { width: 400px; opacity: 0.9; }
+        .cloud-layer-back .cloud-img { width: 400px; opacity: 0.8; }
         .cloud-layer-mid .cloud-img { width: 1000px; opacity: 0.9; }
         .cloud-layer-front .cloud-img { width: 600px; opacity: 0.95; }
 
@@ -237,7 +237,7 @@
 
         /* ====== SCROLLBAR ====== */
         ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-track { background: #1a0505; }
         ::-webkit-scrollbar-thumb { background: var(--crimson-deep); }
         ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 
@@ -356,10 +356,10 @@
             <div style="font-family:'Cinzel',serif;" class="text-base md:text-lg tracking-[0.15em] text-[#c9a84c]">Portfolio.mp4</div>
             <div class="hidden lg:flex gap-8 xl:gap-12 items-center">
                 <a class="text-[#c9a84c] border-b border-[#c9a84c]/40 pb-0.5 font-label text-[10px] xl:text-xs uppercase tracking-widest transition-colors duration-500" href="#work">Selected Work</a>
-                <a class="text-[#b8a47a]/60 font-light font-label text-[10px] xl:text-xs uppercase tracking-widest hover:text-[#c9a84c] transition-colors duration-500" href="#authority">Testimonials</a>
+                <a class="text-[#b8a47a]/60 font-light font-label text-[10px] xl:text-xs uppercase tracking-widest hover:text-[#c9a84c] transition-colors duration-500" href="#testimonials">Testimonials</a>
                 <a class="text-[#b8a47a]/60 font-light font-label text-[10px] xl:text-xs uppercase tracking-widest hover:text-[#c9a84c] transition-colors duration-500" href="#philosophy">Doctrine</a>
             </div>
-            <button class="bg-[#c9a84c] text-[#1a0a00] px-4 md:px-6 py-2 text-[10px] md:text-xs font-label uppercase tracking-widest hover:bg-[#e8c87a] transition-colors duration-300" style="font-family:'Cinzel',serif;">
+            <button href="#contact" class="bg-[#c9a84c] text-[#1a0a00] px-4 md:px-6 py-2 text-[10px] md:text-xs font-label uppercase tracking-widest hover:bg-[#e8c87a] transition-colors duration-300" style="font-family:'Cinzel',serif;">
                 Initialize <span class="hidden sm:inline">Contact</span>
             </button>
         </div>
@@ -426,7 +426,7 @@
         </section>
 
         <!-- Metrics Section -->
-        <section class="bg-surface-container-lowest py-20 md:py-32 px-6 md:px-12 reveal-section" id="metrics">
+        <section id="testimonials" class="bg-surface-container-lowest py-20 md:py-32 px-6 md:px-12 reveal-section" id="metrics">
             <div class="max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
                 <div class="space-y-8 md:space-y-12">
                     <h2 class="font-headline text-4xl md:text-5xl italic text-on-surface tracking-tight" style="font-family:'Cinzel',serif;">Quantitative Validation</h2>
@@ -461,9 +461,8 @@
 
         <!-- Video Section -->
         <section class="relative w-full h-screen overflow-hidden reveal-section" id="video-section">
-            <video id="scrollVideo" class="absolute top-0 left-0 w-full h-full object-cover" autoplay muted playsinline loop>
-                <source src="./assets/section.mp4" type="video/mp4"/>
-                <source src="./assets/section.webm" type="video/webm">
+            <video id="scrollVideo" class="data-src absolute top-0 left-0 w-full h-full object-cover" autoplay muted playsinline loop>
+                <source data-src="./assets/section.webm" type="video/webm">
             </video>
             <div class="absolute inset-0 bg-black/50 z-10 flex items-center justify-center">
                 <div class="text-center px-6">
@@ -694,62 +693,37 @@
     </div>
 </section>
 
-        <!-- Authority Section -->
-        <section class="bg-surface-container-lowest py-20 md:py-32 px-6 md:px-12 relative overflow-hidden reveal-section" id="authority">
-            <div class="absolute top-0 right-0 w-full md:w-1/2 h-full opacity-[0.05] md:opacity-10 grayscale pointer-events-none">
-                <img alt="Brutalist architecture" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOG4E2n42SLSozKgvC6JmCM0HmTA4ZCRd1fyB4QukuBUqwRTh2kni_eL5lq6orZdnRSMLh7c8Uz8J44on0-sKi5d9qsuIRg0BnK_2tj3clzXwVs_qNpGKIDODWpOIESm8dFwx7m3ofbzGpXl1dQyzJJlV7vRmJp2sQk2f_EydHTbjvuC4K2BLnqGC41KiLQPWDKNcMW3SeyOPlFu08GRyLzQQbIZNA35uBmPEACI8yXOJ_U65fR4GJhXR4tm0gye61nqLmUpVhBUU"/>
-            </div>
-            <div class="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-px border border-outline-variant/10">
-                <div class="bg-surface-container p-10 md:p-16 space-y-6 md:space-y-8 ornate-border">
-                    <span class="material-symbols-outlined text-3xl md:text-4xl text-primary">verified_user</span>
-                    <h3 class="font-headline text-2xl md:text-3xl italic text-on-surface" style="font-family:'Cinzel',serif;">Authority Protocol</h3>
-                    <p class="font-body text-sm md:text-base text-on-surface-variant leading-relaxed">Establishing visual dominance through intentional spacing, sophisticated typography, and motion theory.</p>
-                </div>
-                <div class="bg-surface-container p-10 md:p-16 space-y-6 md:space-y-8 border-t md:border-t-0 md:border-l border-outline-variant/10 ornate-border">
-                    <span class="material-symbols-outlined text-3xl md:text-4xl text-primary">neurology</span>
-                    <h3 class="font-headline text-2xl md:text-3xl italic text-on-surface" style="font-family:'Cinzel',serif;">Cognitive Flow</h3>
-                    <p class="font-body text-sm md:text-base text-on-surface-variant leading-relaxed">Mapping the user journey using psychological cues that ensure message retention and brand loyalty.</p>
-                </div>
-                <div class="bg-surface-container p-10 md:p-16 space-y-6 md:space-y-8 border-t md:border-t-0 md:border-l border-outline-variant/10 ornate-border">
-                    <span class="material-symbols-outlined text-3xl md:text-4xl text-primary">precision_manufacturing</span>
-                    <h3 class="font-headline text-2xl md:text-3xl italic text-on-surface" style="font-family:'Cinzel',serif;">Mechanical Finish</h3>
-                    <p class="font-body text-sm md:text-base text-on-surface-variant leading-relaxed">Every frame, every pixel, and every transition is polished to a biomechanical standard of perfection.</p>
-                </div>
-            </div>
-        </section>
-
         <!-- Zoom Video Section -->
         <section id="zoom-section" class="relative w-full">
 
             <!-- Dark base -->
-            <div class="absolute inset-0 z-0 bg-[#080808]"></div>
+            <div class="absolute inset-0 z-0 bg-[#200606]"></div>
 
             <!-- Floating background videos (decorative, scattered) -->
             <div id="zoom-floaters" class="absolute inset-0 z-10 pointer-events-none">
                 <div class="zoom-float" style="width:28%;aspect-ratio:16/9;top:8%;left:5%;transform:rotate(-4deg);">
-                    <video class="w-full h-full object-cover" muted playsinline loop autoplay><source src="/assets/section.mp4" type="video/mp4">
-                    <source src="/assets/section.webm" type="video/webm"></video>
+                    <video class="data-src w-full h-full object-cover" muted playsinline loop autoplay><source data-src="/assets/section2.webm" type="video/webm">
+                    <source data-src="/assets/section3.webm" type="video/webm"></video>
                 </div>
                 <div class="zoom-float" style="width:22%;aspect-ratio:16/9;top:55%;left:2%;transform:rotate(3deg);">
-                    <video class="w-full h-full object-cover" muted playsinline loop autoplay><source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">  <source src="/assets/section.webm" type="video/webm"></video>
+                    <video class="w-full h-full object-cover data-src" muted playsinline loop autoplay> <source data-src="/assets/section.webm" type="video/webm"></video>
                 </div>
                 <div class="zoom-float" style="width:24%;aspect-ratio:16/9;top:15%;right:4%;transform:rotate(5deg);">
-                    <video class="w-full h-full object-cover" muted playsinline loop autoplay><source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4" type="video/mp4">  <source src="/assets/section.webm" type="video/webm"></video>
+                    <video class="w-full h-full object-cover data-src" muted playsinline loop autoplay><source data-src="/assets/section.webm" type="video/webm"></video>
                 </div>
                 <div class="zoom-float" style="width:20%;aspect-ratio:16/9;bottom:12%;right:6%;transform:rotate(-3deg);">
-                    <video class="w-full h-full object-cover" muted playsinline loop autoplay><source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">  <source src="/assets/section.webm" type="video/webm"></video>
+                    <video class="w-full h-full object-cover data-src" muted playsinline loop autoplay><source data-src="/assets/section2.webm" type="video/webm"></video>
                 </div>
                 <div class="zoom-float" style="width:18%;aspect-ratio:16/9;bottom:20%;left:30%;transform:rotate(2deg);">
-                    <video class="w-full h-full object-cover" muted playsinline loop autoplay><source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" type="video/mp4">  <source src="/assets/section.webm" type="video/webm"></video>
+                    <video class="w-full h-full object-cover data-src" muted playsinline loop autoplay><source data-src="/assets/section2.webm" type="video/webm"></video>
                 </div>
             </div>
 
             <!-- The hero video — fullscreen, scaled down to look like a floating card, zooms to fill -->
             <div class="absolute inset-0 z-20 flex items-center justify-center">
                 <div id="zoom-hero-wrap" class="w-full h-full overflow-hidden" style="transform-origin: center center;">
-                    <video id="zoom-hero-video" class="w-full h-full object-cover" muted playsinline loop autoplay>
-                        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
-                          <source src="/assets/section.webm" type="video/webm">
+                    <video id="zoom-hero-video" class="data-src w-full h-full object-cover" muted playsinline loop autoplay>
+                          <source data-src="/assets/section3.webm" type="video/webm">
                     </video>
                 </div>
             </div>
@@ -771,72 +745,169 @@
             <div class="max-w-screen-2xl mx-auto space-y-16 md:space-y-24">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                     <h2 class="font-headline text-5xl md:text-6xl italic text-primary gold-shimmer" style="font-family:'Cinzel',serif;">Selected Work</h2>
-                    <div class="font-label text-[10px] md:text-xs uppercase tracking-widest text-on-surface-variant mb-0 md:mb-4">Archive 01 — 04</div>
+                    <div class="font-label text-[10px] md:text-xs uppercase tracking-widest text-on-surface-variant mb-0 md:mb-4">Archive 01 — 08</div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
-                    <div class="md:col-span-12 lg:col-span-8 group cursor-pointer">
-                        <div class="overflow-hidden bg-surface-container mb-6 relative aspect-[16/9] rounded-xl ornate-border">
-                            <img alt="Project Alpha" class="w-full h-full object-cover grayscale group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbHk_xO1moN1-8LT8Zyx6B6OG2FMIU5t8q2XzC0AOLmxQMZnijQAzece4bvnsN2TktzMm97q1_eMMO0nA-7GHD3f9UXNB663hKqySyaNIolLDp7QzDY9vr5mV7gYQedLzFVNQmh_frxWCqMaEdlOad9loomUenGIIp68puyr2iFP8D4n1p3Gl1QseNuOuIsPuIRam_qc07gcBiiG_nc45bCAWq73qIr2MI_VZD_c9DbuSWv-_kk6dyegqTEtANpYCTbg-H9Jsnw_Q"/>
+
+                <!-- Row 1: big left + tall right -->
+                <div class="grid grid-cols-12 gap-4 md:gap-6">
+                    <div class="col-span-12 md:col-span-8 group cursor-pointer">
+                        <div class="overflow-hidden bg-surface-container mb-4 relative aspect-[16/9] rounded-xl ornate-border">
+                            <img alt="Neural Genesis" class="w-full h-full object-cover grayscale group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbHk_xO1moN1-8LT8Zyx6B6OG2FMIU5t8q2XzC0AOLmxQMZnijQAzece4bvnsN2TktzMm97q1_eMMO0nA-7GHD3f9UXNB663hKqySyaNIolLDp7QzDY9vr5mV7gYQedLzFVNQmh_frxWCqMaEdlOad9loomUenGIIp68puyr2iFP8D4n1p3Gl1QseNuOuIsPuIRam_qc07gcBiiG_nc45bCAWq73qIr2MI_VZD_c9DbuSWv-_kk6dyegqTEtANpYCTbg-H9Jsnw_Q"/>
                         </div>
                         <div class="flex justify-between items-start">
-                            <div>
-                                <h4 class="font-headline text-2xl md:text-3xl italic text-on-surface" style="font-family:'Cinzel',serif;">Neural Genesis</h4>
-                                <p class="font-body text-sm md:text-base text-on-surface-variant">Brand Identity & Editorial Direction</p>
-                            </div>
-                            <span class="font-label text-[10px] md:text-xs text-primary">2024</span>
+                            <div><h4 class="font-headline text-2xl italic text-on-surface" style="font-family:'Cinzel',serif;">Neural Genesis</h4><p class="font-body text-sm text-on-surface-variant">Brand Identity & Editorial Direction</p></div>
+                            <span class="font-label text-[10px] text-primary">2024</span>
                         </div>
                     </div>
-                    <div class="md:col-span-6 lg:col-span-4 group cursor-pointer lg:mt-24">
-                        <div class="overflow-hidden bg-surface-container mb-6 relative aspect-[3/4] rounded-xl ornate-border">
-                            <img alt="Project Beta" class="w-full h-full object-cover grayscale group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1UclDfMCvafgTS2qLlpgqGelPEG0pgIRnXOmfCLaiLeoXZrtinolC7P79ApKkbFpLwNAd99HryFxRGGUkGjpgfjIWAspyOjC1GkvlXs7K7rD-Lw_8i5J5cbjPLep5PvUCWjQ3XMC0wzGYrTF7CWhruttdnAbG_kLDOXElZcpY-e0mrXblggHgObyi5KvrPXoXizpq4vFhohcGfZdJN2-2EEHI6NMKdkExC7zQAEBXnzkr8lv1cZ5cOiY51mBk-glvCE-wrrKgoX4"/>
+                    <div class="col-span-12 md:col-span-4 group cursor-pointer md:mt-16">
+                        <div class="overflow-hidden bg-surface-container mb-4 relative aspect-[3/4] rounded-xl ornate-border">
+                            <img alt="Void Fragment" class="w-full h-full object-cover grayscale group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1UclDfMCvafgTS2qLlpgqGelPEG0pgIRnXOmfCLaiLeoXZrtinolC7P79ApKkbFpLwNAd99HryFxRGGUkGjpgfjIWAspyOjC1GkvlXs7K7rD-Lw_8i5J5cbjPLep5PvUCWjQ3XMC0wzGYrTF7CWhruttdnAbG_kLDOXElZcpY-e0mrXblggHgObyi5KvrPXoXizpq4vFhohcGfZdJN2-2EEHI6NMKdkExC7zQAEBXnzkr8lv1cZ5cOiY51mBk-glvCE-wrrKgoX4"/>
                         </div>
                         <div class="flex justify-between items-start">
-                            <div>
-                                <h4 class="font-headline text-xl md:text-2xl italic text-on-surface" style="font-family:'Cinzel',serif;">Void Fragment</h4>
-                                <p class="font-body text-sm md:text-base text-on-surface-variant">Visual Synthesis</p>
-                            </div>
-                            <span class="font-label text-[10px] md:text-xs text-primary">2023</span>
+                            <div><h4 class="font-headline text-xl italic text-on-surface" style="font-family:'Cinzel',serif;">Void Fragment</h4><p class="font-body text-sm text-on-surface-variant">Visual Synthesis</p></div>
+                            <span class="font-label text-[10px] text-primary">2023</span>
                         </div>
                     </div>
                 </div>
+
+                <!-- Row 2: three columns, middle offset up -->
+                <div class="grid grid-cols-12 gap-4 md:gap-6">
+                    <div class="col-span-12 md:col-span-4 group cursor-pointer">
+                        <div class="overflow-hidden bg-surface-container mb-4 relative aspect-[4/5] rounded-xl ornate-border">
+                            <img alt="Crimson Axis" class="w-full h-full object-cover grayscale group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN3Oav5XRtBF-rKl1ES-Aih7oKbJeI-xkviAK-h8u9oJ180BbxPt2MhmzrSQEU9yMZszzjoKgBzkpdKdTxogUkHKgNP-LpPz1Ped97hjgMU7glv3x46FMVCBlefR5N3VVMc0EuGzm1Lpx3fRruMeZ2Kyh5BFUERXfDehq32zww5sZDQRE3H5PrHqS7ZwThNw5EhbeodMT1cuu_lXAzoa-33mbqCsGN5E5I8eVpk26KnIMyUQOKoorVq37zQqaD6Zd-5X_GfmqrsQ"/>
+                        </div>
+                        <div class="flex justify-between items-start">
+                            <div><h4 class="font-headline text-xl italic text-on-surface" style="font-family:'Cinzel',serif;">Crimson Axis</h4><p class="font-body text-sm text-on-surface-variant">Motion & Color Direction</p></div>
+                            <span class="font-label text-[10px] text-primary">2024</span>
+                        </div>
+                    </div>
+                    <div class="col-span-12 md:col-span-5 group cursor-pointer md:-mt-12">
+                        <div class="overflow-hidden bg-surface-container mb-4 relative aspect-[16/10] rounded-xl ornate-border">
+                            <img alt="Phantom Edit" class="w-full h-full object-cover grayscale group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOKRx1zBNEFD7K177CbXwCE88kInB0jvsaoCIoCod800COEmlpKwgl9SCSv2oPLFBJtmS_JbT4xqMmRbmkGi_c2Yq9o3eJhDTA7s395a3d0vuhsq-Wu09q9stc7eHDMHg9bjmGk38C9AW_2nX8a9ecqY9zLTPUyEZqIM1k6ZCrJXKMOy22dIxV-0ZgcMTABI8_TnL88Tt4qwQRaTVbZYzbZAmda2e3NqdI9D1DrvnlJhNDGVFlIzB62UUkBwZveum5ywPZeEdQpLM"/>
+                        </div>
+                        <div class="flex justify-between items-start">
+                            <div><h4 class="font-headline text-xl italic text-on-surface" style="font-family:'Cinzel',serif;">Phantom Edit</h4><p class="font-body text-sm text-on-surface-variant">Cinematic Post-Production</p></div>
+                            <span class="font-label text-[10px] text-primary">2023</span>
+                        </div>
+                    </div>
+                    <div class="col-span-12 md:col-span-3 group cursor-pointer md:mt-8">
+                        <div class="overflow-hidden bg-surface-container mb-4 relative aspect-[1/1] rounded-xl ornate-border">
+                            <img alt="Gold Frequency" class="w-full h-full object-cover grayscale group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOG4E2n42SLSozKgvC6JmCM0HmTA4ZCRd1fyB4QukuBUqwRTh2kni_eL5lq6orZdnRSMLh7c8Uz8J44on0-sKi5d9qsuIRg0BnK_2tj3clzXwVs_qNpGKIDODWpOIESm8dFwx7m3ofbzGpXl1dQyzJJlV7vRmJp2sQk2f_EydHTbjvuC4K2BLnqGC41KiLQPWDKNcMW3SeyOPlFu08GRyLzQQbIZNA35uBmPEACI8yXOJ_U65fR4GJhXR4tm0gye61nqLmUpVhBUU"/>
+                        </div>
+                        <div class="flex justify-between items-start">
+                            <div><h4 class="font-headline text-lg italic text-on-surface" style="font-family:'Cinzel',serif;">Gold Frequency</h4><p class="font-body text-sm text-on-surface-variant">Audio Visual</p></div>
+                            <span class="font-label text-[10px] text-primary">2024</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 3: wide banner + small square -->
+                <div class="grid grid-cols-12 gap-4 md:gap-6">
+                    <div class="col-span-12 md:col-span-5 group cursor-pointer md:mt-6">
+                        <div class="overflow-hidden bg-surface-container mb-4 relative aspect-[1/1] rounded-xl ornate-border">
+                            <img alt="Dark Matter" class="w-full h-full object-cover grayscale group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbHk_xO1moN1-8LT8Zyx6B6OG2FMIU5t8q2XzC0AOLmxQMZnijQAzece4bvnsN2TktzMm97q1_eMMO0nA-7GHD3f9UXNB663hKqySyaNIolLDp7QzDY9vr5mV7gYQedLzFVNQmh_frxWCqMaEdlOad9loomUenGIIp68puyr2iFP8D4n1p3Gl1QseNuOuIsPuIRam_qc07gcBiiG_nc45bCAWq73qIr2MI_VZD_c9DbuSWv-_kk6dyegqTEtANpYCTbg-H9Jsnw_Q"/>
+                        </div>
+                        <div class="flex justify-between items-start">
+                            <div><h4 class="font-headline text-xl italic text-on-surface" style="font-family:'Cinzel',serif;">Dark Matter</h4><p class="font-body text-sm text-on-surface-variant">Documentary Series</p></div>
+                            <span class="font-label text-[10px] text-primary">2022</span>
+                        </div>
+                    </div>
+                    <div class="col-span-12 md:col-span-7 group cursor-pointer">
+                        <div class="overflow-hidden bg-surface-container mb-4 relative aspect-[16/9] rounded-xl ornate-border">
+                            <img alt="Sovereign Cut" class="w-full h-full object-cover grayscale group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1UclDfMCvafgTS2qLlpgqGelPEG0pgIRnXOmfCLaiLeoXZrtinolC7P79ApKkbFpLwNAd99HryFxRGGUkGjpgfjIWAspyOjC1GkvlXs7K7rD-Lw_8i5J5cbjPLep5PvUCWjQ3XMC0wzGYrTF7CWhruttdnAbG_kLDOXElZcpY-e0mrXblggHgObyi5KvrPXoXizpq4vFhohcGfZdJN2-2EEHI6NMKdkExC7zQAEBXnzkr8lv1cZ5cOiY51mBk-glvCE-wrrKgoX4"/>
+                        </div>
+                        <div class="flex justify-between items-start">
+                            <div><h4 class="font-headline text-2xl italic text-on-surface" style="font-family:'Cinzel',serif;">Sovereign Cut</h4><p class="font-body text-sm text-on-surface-variant">Long-Form Content Strategy</p></div>
+                            <span class="font-label text-[10px] text-primary">2022</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
         <!-- Contact -->
-        <section class="py-20 md:py-40 px-6 md:px-12 reveal-section" id="contact">
-            <div class="max-w-screen-2xl mx-auto bg-surface-container p-8 sm:p-20 lg:p-32 relative overflow-hidden rounded-2xl ornate-border">
-                <div class="absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent"></div>
-                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-20">
-                    <div class="space-y-8 md:space-y-12">
-                        <h2 class="font-headline text-5xl sm:text-6xl md:text-8xl italic text-on-surface leading-[0.9]" style="font-family:'Cinzel',serif;">Start the <br/><span class="text-primary gold-shimmer">Transition</span>.</h2>
-                        <p class="font-body text-lg md:text-xl text-on-surface-variant max-w-md leading-relaxed">Ready to evolve your digital presence from noise into authority? Connect for high-tier collaboration.</p>
-                        <div class="space-y-4 pt-6 md:pt-12">
-                            <div class="font-label text-[10px] tracking-[0.3em] uppercase text-primary">Direct Line</div>
-                            <div class="font-headline text-2xl md:text-3xl italic text-on-surface break-words" style="font-family:'Cinzel',serif;">hello@portfolio-mpa.void</div>
-                        </div>
+        <section class="relative overflow-hidden reveal-section" id="contact">
+
+            <!-- Background texture -->
+            <div class="absolute inset-0 bg-[#200606] neural-grid opacity-100"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-background via-transparent to-[#120303]"></div>
+
+            <!-- Top ornamental rule -->
+            <div class="relative z-10 flex items-center gap-6 px-6 md:px-12 pt-20 md:pt-32 max-w-screen-2xl mx-auto">
+                <div class="flex-1 h-px bg-gradient-to-r from-transparent to-primary/40"></div>
+                <span class="font-label text-[9px] uppercase tracking-[0.4em] text-primary/50">open for work</span>
+                <div class="flex-1 h-px bg-gradient-to-l from-transparent to-primary/40"></div>
+            </div>
+
+            <!-- Giant headline -->
+            <div class="relative z-10 px-6 md:px-12 pt-12 pb-16 max-w-screen-2xl mx-auto">
+                <h2 class="font-headline italic leading-[0.85] text-[clamp(3.5rem,12vw,11rem)] text-on-surface" style="font-family:'Cinzel',serif;">
+                    Let's<br><span class="text-primary gold-shimmer">Build</span><br>Together.
+                </h2>
+            </div>
+
+            <!-- Main content grid -->
+            <div class="relative z-10 px-6 md:px-12 pb-24 md:pb-40 max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+
+                <!-- Left: info -->
+                <div class="space-y-12">
+                    <p class="font-body text-base md:text-lg text-on-surface-variant leading-relaxed max-w-sm">
+                        Ready to evolve your digital presence from noise into authority? Connect for high-tier collaboration.
+                    </p>
+
+                    <!-- Contact links -->
+                    <div class="space-y-6">
+                        <a href="mailto:nahomnatnael87@gmail.com" class="group flex items-center justify-between border-b border-primary/10 pb-5 hover:border-primary/40 transition-colors duration-500">
+                            <div>
+                                <div class="font-label text-[9px] uppercase tracking-[0.3em] text-primary/50 mb-1">Email</div>
+                                <div class="font-headline italic text-lg md:text-xl text-on-surface group-hover:text-primary transition-colors duration-300" style="font-family:'Cinzel',serif;">nahomnatnael87@gmail.com</div>
+                            </div>
+                            <span class="material-symbols-outlined text-primary/30 group-hover:text-primary group-hover:translate-x-1 transition-all duration-300">arrow_outward</span>
+                        </a>
+                        <a href="https://nahomtmariam.com" target="_blank" class="group flex items-center justify-between border-b border-primary/10 pb-5 hover:border-primary/40 transition-colors duration-500">
+                            <div>
+                                <div class="font-label text-[9px] uppercase tracking-[0.3em] text-primary/50 mb-1">Website</div>
+                                <div class="font-headline italic text-lg md:text-xl text-on-surface group-hover:text-primary transition-colors duration-300" style="font-family:'Cinzel',serif;">nahomtmariam.com</div>
+                            </div>
+                            <span class="material-symbols-outlined text-primary/30 group-hover:text-primary group-hover:translate-x-1 transition-all duration-300">arrow_outward</span>
+                        </a>
                     </div>
-                    <form class="space-y-6 md:space-y-8">
-                        <div class="space-y-2 border-b border-outline-variant/30 pb-4 focus-within:border-primary transition-colors">
-                            <label class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Entity Name</label>
-                            <input class="w-full bg-transparent border-none p-0 font-headline italic text-xl md:text-2xl text-on-surface placeholder:text-outline-variant focus:ring-0" placeholder="John Doe" type="text"/>
-                        </div>
-                        <div class="space-y-2 border-b border-outline-variant/30 pb-4 focus-within:border-primary transition-colors">
-                            <label class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Communication Vector</label>
-                            <input class="w-full bg-transparent border-none p-0 font-headline italic text-xl md:text-2xl text-on-surface placeholder:text-outline-variant focus:ring-0" placeholder="email@address.com" type="email"/>
-                        </div>
-                        <div class="space-y-2 border-b border-outline-variant/30 pb-4 focus-within:border-primary transition-colors">
-                            <label class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">The Intent</label>
-                            <textarea class="w-full bg-transparent border-none p-0 font-headline italic text-xl md:text-2xl text-on-surface placeholder:text-outline-variant focus:ring-0 resize-none" placeholder="Describe the requirement..." rows="3"></textarea>
-                        </div>
-                        <button class="w-full bg-primary text-on-primary py-4 md:py-6 font-label uppercase tracking-[0.2em] text-[10px] md:text-sm hover:bg-primary-dim transition-all duration-500" style="font-family:'Cinzel',serif;">Transmit Inquiry</button>
-                    </form>
+
+                    <!-- Availability badge -->
+                    <div class="inline-flex items-center gap-3 px-5 py-3 border border-primary/20 rounded-full">
+                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                        <span class="font-label text-[9px] uppercase tracking-[0.3em] text-primary/70">Available for projects — 2026</span>
+                    </div>
                 </div>
+
+                <!-- Right: form -->
+                <form class="space-y-0">
+                    <div class="group border-b border-primary/10 py-6 focus-within:border-primary/60 transition-colors duration-500">
+                        <label class="font-label text-[9px] uppercase tracking-[0.3em] text-primary/40 group-focus-within:text-primary/70 transition-colors">Name</label>
+                        <input type="text" placeholder="Your name" class="w-full bg-transparent border-none p-0 mt-2 font-headline italic text-2xl md:text-3xl text-on-surface placeholder:text-on-surface/10 focus:ring-0 focus:outline-none"/>
+                    </div>
+                    <div class="group border-b border-primary/10 py-6 focus-within:border-primary/60 transition-colors duration-500">
+                        <label class="font-label text-[9px] uppercase tracking-[0.3em] text-primary/40 group-focus-within:text-primary/70 transition-colors">Email</label>
+                        <input type="email" placeholder="your@email.com" class="w-full bg-transparent border-none p-0 mt-2 font-headline italic text-2xl md:text-3xl text-on-surface placeholder:text-on-surface/10 focus:ring-0 focus:outline-none"/>
+                    </div>
+                    <div class="group border-b border-primary/10 py-6 focus-within:border-primary/60 transition-colors duration-500">
+                        <label class="font-label text-[9px] uppercase tracking-[0.3em] text-primary/40 group-focus-within:text-primary/70 transition-colors">Message</label>
+                        <textarea rows="3" placeholder="Tell me about the project..." class="w-full bg-transparent border-none p-0 mt-2 font-headline italic text-2xl md:text-3xl text-on-surface placeholder:text-on-surface/10 focus:ring-0 focus:outline-none resize-none"></textarea>
+                    </div>
+                    <div class="pt-10">
+                        <button type="submit" class="group relative w-full overflow-hidden bg-transparent border border-primary/30 hover:border-primary py-5 font-label text-[10px] uppercase tracking-[0.3em] text-primary transition-all duration-500 btn-ripple">
+                            <span class="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out"></span>
+                            <span class="relative group-hover:text-black transition-colors duration-300" style="font-family:'Cinzel',serif;">Send Transmission</span>
+                        </button>
+                    </div>
+                </form>
             </div>
         </section>
 
     </main>
 
-    <footer class="w-full py-16 md:py-20 px-6 md:px-12 bg-[#050503] bg-gradient-to-t from-[#050503] to-transparent">
+    <footer class="w-full py-16 md:py-20 px-6 md:px-12 bg-[#120303] bg-gradient-to-t from-[#120303] to-transparent">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-end w-full border-t border-[#c9a84c]/10 pt-12 max-w-screen-2xl mx-auto gap-8">
             <div class="space-y-4 md:space-y-6">
                 <div style="font-family:'Cinzel',serif;" class="text-base text-[#c9a84c]">chunkz.mp4</div>
@@ -851,6 +922,41 @@
     </footer>
 
     <!-- ========== SCRIPTS ========== -->
+    <script>
+// Simple video lazy loader
+document.addEventListener('DOMContentLoaded', function() {
+    const videos = document.querySelectorAll('video');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const video = entry.target;
+
+            if (entry.isIntersecting) {
+                // Load and play video
+                if (video.dataset.src && !video.src) {
+                    video.src = video.dataset.src;
+                    video.load();
+                }
+
+                if (video.autoplay) {
+                    video.play().catch(e => console.log('Playback error:', e));
+                }
+
+                observer.unobserve(video);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '50px' });
+
+    videos.forEach(video => {
+        // Store original src
+        if (video.src && !video.dataset.src) {
+            video.dataset.src = video.src;
+            video.src = '';
+        }
+        observer.observe(video);
+    });
+});
+</script>
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
@@ -935,15 +1041,37 @@
     });
     </script>
 
-    <!-- Video autoplay -->
+    <!-- Video lazy loader -->
     <script>
-        const scrollVideo = document.getElementById('scrollVideo');
-        if (scrollVideo) {
-            scrollVideo.play().catch(() => {
-                document.addEventListener('click', () => scrollVideo.play(), { once: true });
+        function activateVideo(video) {
+            video.querySelectorAll('source[data-src]').forEach(s => {
+                s.src = s.dataset.src;
+                s.removeAttribute('data-src');
+            });
+            video.load();
+            video.play().catch(() => {
+                document.addEventListener('click', () => video.play(), { once: true });
             });
         }
+
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    activateVideo(entry.target);
+                    videoObserver.unobserve(entry.target);
+                }
+            });
+        }, { rootMargin: '200px' });
+
+        document.querySelectorAll('video').forEach(v => {
+            // Only observe videos that still have data-src sources (not yet loaded)
+            if (v.querySelector('source[data-src]')) {
+                videoObserver.observe(v);
+            }
+        });
     </script>
+
+    <!-- Video autoplay handled by lazy loader above -->
 
     <!-- 3D Card Script -->
     <script>
